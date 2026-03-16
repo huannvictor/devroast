@@ -1,26 +1,39 @@
 # Devroast 🔥
 
-**Devroast** is a fun, developer-focused application that "roasts" your code. Submit your most shameful snippets and receive a detailed, often brutal, analysis of your logic, style, and efficiency.
+**Devroast** is where your code goes to get burned. Submit your most "creative" (shameful) snippets and receive a brutal, no-filter analysis of your logic, style, and efficiency. Stop pretending your `eval()` is fine—let the agent tell you the truth.
 
-## Features
+---
 
-- **Code Submission**: Paste your snippets for an immediate roast.
-- **Shame Leaderboard**: See who has the most questionable code on the internet.
-- **Suggested Fixes**: Because even the most shameful code deserves a second chance.
+## 🚀 NLW Operator
+This project was developed during the **NLW Operator** event by [Rocketseat](https://rocketseat.com.br). It serves as a hands-on exploration of the cutting-edge capabilities of AI-driven development and modern web architecture.
 
-## About
+## ✨ Features
+- **Brutal Code Roast**: Submit your snippets for an immediate, AI-powered logic and style audit.
+- **The Shameboard**: A leaderboard of the most questionable code found in the wild.
+- **Suggested Fixes**: Because even the most tragic code deserves a redemption arc.
+- **Developer-Centric UI**: A sleek, terminal-inspired interface designed for the modern dev.
 
-Built during the **NLW Operator** event by **Rocketseat**. This project explores modern web technologies to create a fast, responsive, and visually striking experience.
+## 🛠️ Tech Stack
+- **Framework**: Next.js 16 (App Router) & React 19
+- **Styling**: Tailwind CSS v4 & Tailwind Variants
+- **Quality**: TypeScript & Biome
+- **Package Manager**: pnpm
 
-## Tech Stack
+## 🏁 Getting Started
 
-- **Framework**: Next.js 16 (App Router), React 19.
-- **Styling**: Tailwind CSS v4.
-- **Quality**: TypeScript & Biome.
-- **Manager**: pnpm.
+1. **Clone the repository**:
+   ```bash
+   git clone <repository-url>
+   ```
+2. **Install dependencies**:
+   ```bash
+   pnpm install
+   ```
+3. **Ignite the server**:
+   ```bash
+   pnpm dev
+   ```
+4. **Face the truth**: Open [http://localhost:3000](http://localhost:3000)
 
-## Getting Started
-
-1. Install dependencies: `pnpm install`
-2. Run development server: `pnpm dev`
-3. Visit `http://localhost:3000`
+---
+*Made with ☕ and a lot of sass during NLW Operator.*
