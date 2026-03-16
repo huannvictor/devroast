@@ -74,7 +74,7 @@ function ScoreRing({
       from 0deg,
       var(--color-accent-red) 0%,
       var(--color-accent-amber) 35%,
-      var(--color-accent-green) 35%,
+      var(--color-accent-green) 70%,
       var(--color-accent-green) 100%
     )`,
     maskImage: `conic-gradient(#000 ${percentage}%, transparent ${percentage}%)`,
