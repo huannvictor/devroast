@@ -15,15 +15,15 @@ const scoreRing = tv({
   variants: {
     size: {
       sm: {
-        base: "h-16 w-16",
+        base: "size-16",
         scoreText: "text-xl",
       },
       md: {
-        base: "h-24 w-24",
+        base: "size-24",
         scoreText: "text-3xl",
       },
       lg: {
-        base: "h-36 w-36",
+        base: "size-36",
         scoreText: "text-5xl",
       },
     },
@@ -63,11 +63,7 @@ function ScoreRing({
   };
 
   return (
-    <div
-      className={base({ className })}
-      style={gradientStyle}
-      {...props}
-    >
+    <div className={base({ className })} style={gradientStyle} {...props}>
       <div className={hole()} style={holeStyle} />
       <div className={textWrapper()}>
         <span className={scoreText()}>{value}</span>

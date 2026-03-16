@@ -12,7 +12,7 @@ const badge = tv({
     },
     size: {
       sm: "text-xs",
-      md: "text-[13px]",
+      md: "text-13",
       lg: "text-sm",
     },
   },

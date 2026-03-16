@@ -5,19 +5,19 @@ import { tv, type VariantProps } from "tailwind-variants";
 
 const diffLine = tv({
   slots: {
-    base: "flex w-full items-center gap-2 px-4 py-1 font-mono text-[13px]",
+    base: "flex w-full items-center gap-2 px-4 py-1 font-mono text-13",
     prefix: "w-4 text-center",
     content: "flex-1 whitespace-pre",
   },
   variants: {
     variant: {
       added: {
-        base: "bg-[#0A1A0F]",
+        base: "bg-diff-added",
         prefix: "text-accent-green",
         content: "text-text-primary",
       },
       removed: {
-        base: "bg-[#1A0A0A]",
+        base: "bg-diff-removed",
         prefix: "text-accent-red",
         content: "text-text-secondary",
       },

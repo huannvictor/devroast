@@ -15,9 +15,9 @@ export function Navbar() {
 
       {/* Nav Items */}
       <div className="flex items-center gap-6">
-        <Link 
-          href="/leaderboard" 
-          className="font-mono text-[13px] text-text-secondary hover:text-text-primary transition-colors"
+        <Link
+          href="/leaderboard"
+          className="font-mono text-13 text-text-secondary hover:text-text-primary transition-colors"
         >
           leaderboard
         </Link>
