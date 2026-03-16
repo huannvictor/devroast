@@ -5,10 +5,30 @@ import { twMerge } from "tailwind-merge";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { CodeBlock } from "@/components/ui/code-block";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  CodeBlock,
+  CodeBlockBody,
+  CodeBlockContent,
+  CodeBlockDots,
+  CodeBlockFileName,
+  CodeBlockHeader,
+  CodeBlockLineNumbers,
+} from "@/components/ui/code-block";
 import { DiffLine } from "@/components/ui/diff-line";
-import { LeaderboardRow } from "@/components/ui/leaderboard-row";
+import {
+  LeaderboardRow,
+  LeaderboardRowCode,
+  LeaderboardRowLang,
+  LeaderboardRowRank,
+  LeaderboardRowScore,
+} from "@/components/ui/leaderboard-row";
 import { ScoreRing } from "@/components/ui/score-ring";
 import { Toggle } from "@/components/ui/toggle";
 
@@ -35,7 +55,7 @@ export default function ComponentsShowcase() {
   const [isToggled2, setIsToggled2] = useState(true);
 
   return (
-    <main className="flex min-h-screen flex-col items-start gap-[60px] bg-bg-page px-20 py-16 text-text-primary">
+    <main className="flex min-h-screen flex-col items-start gap-15 bg-bg-page px-20 py-16 text-text-primary">
       <h1 className="flex items-center gap-2 font-mono text-2xl font-bold">
         <span className="text-accent-green">{/* // */}</span>
         component_library
@@ -88,37 +108,48 @@ export default function ComponentsShowcase() {
       <ShowcaseSection title="cards">
         <div className="flex items-center gap-4">
           <Card variant="elevated" size="md">
-            <div className="flex items-center gap-2">
-              <div className="h-2 w-2 rounded-full bg-accent-red" />
-              <h3 className="font-mono text-xs font-normal text-accent-red">
-                critical
-              </h3>
-            </div>
-            <p className="font-mono text-[13px] text-text-primary">
-              using var instead of const/let
-            </p>
-            <p className="font-ibm-mono text-xs leading-relaxed text-text-secondary">
-              the var keyword is function-scoped rather than block-scoped,
-              which can lead to unexpected behavior and bugs. modern javascript
-              uses const for immutable bindings and let for mutable ones.
-            </p>
+            <CardHeader>
+              <div className="flex items-center gap-2">
+                <div className="h-2 w-2 rounded-full bg-accent-red" />
+                <span className="font-mono text-xs font-normal text-accent-red">
+                  critical
+                </span>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <CardTitle>using var instead of const/let</CardTitle>
+              <CardDescription>
+                the var keyword is function-scoped rather than block-scoped,
+                which can lead to unexpected behavior and bugs. modern
+                javascript uses const for immutable bindings and let for mutable
+                ones.
+              </CardDescription>
+            </CardContent>
           </Card>
         </div>
       </ShowcaseSection>
 
       <ShowcaseSection title="code_block">
         <div className="flex items-center gap-4">
-          <CodeBlock
-            fileName="calculate.js"
-            code={`function calculateTotal(items) {
+          <CodeBlock>
+            <CodeBlockHeader>
+              <CodeBlockDots />
+              <CodeBlockFileName>calculate.js</CodeBlockFileName>
+            </CodeBlockHeader>
+            <CodeBlockBody>
+              <CodeBlockLineNumbers count={7} />
+              <CodeBlockContent
+                code={`function calculateTotal(items) {
   var total = 0;
   for (var i = 0; i < items.length; i++) {
     total += items[i];
   }
   return total * 0.9; // Apply 10% discount
 }`}
-            language="javascript"
-          />
+                language="javascript"
+              />
+            </CodeBlockBody>
+          </CodeBlock>
         </div>
       </ShowcaseSection>
 
@@ -129,18 +160,22 @@ export default function ComponentsShowcase() {
       </ShowcaseSection>
 
       <ShowcaseSection title="leaderboard_row">
-        <LeaderboardRow
-          rank={1}
-          score={2.1}
-          code="function calculateTotal(items) { var total = 0; ..."
-          lang="javascript"
-        />
-        <LeaderboardRow
-          rank={2}
-          score={9.8}
-          code="function calculateTotal(items) { const total = 0; ..."
-          lang="typescript"
-        />
+        <LeaderboardRow>
+          <LeaderboardRowRank value={1} />
+          <LeaderboardRowScore value={2.1} />
+          <LeaderboardRowCode>
+            function calculateTotal(items) {"{ var total = 0; ..."}
+          </LeaderboardRowCode>
+          <LeaderboardRowLang>javascript</LeaderboardRowLang>
+        </LeaderboardRow>
+        <LeaderboardRow>
+          <LeaderboardRowRank value={2} />
+          <LeaderboardRowScore value={9.8} />
+          <LeaderboardRowCode>
+            function calculateTotal(items) {"{ const total = 0; ..."}
+          </LeaderboardRowCode>
+          <LeaderboardRowLang>typescript</LeaderboardRowLang>
+        </LeaderboardRow>
       </ShowcaseSection>
 
       <ShowcaseSection title="score_ring">

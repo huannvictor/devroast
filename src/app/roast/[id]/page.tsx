@@ -1,12 +1,27 @@
 "use client";
 
-import { ScoreRing } from "@/components/ui/score-ring";
-import { Badge } from "@/components/ui/badge";
-import { Card } from "@/components/ui/card";
-import { CodeBlock } from "@/components/ui/code-block";
-import { DiffLine } from "@/components/ui/diff-line";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import type { BadgeProps } from "@/components/ui/badge";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  CodeBlock,
+  CodeBlockBody,
+  CodeBlockContent,
+  CodeBlockDots,
+  CodeBlockFileName,
+  CodeBlockHeader,
+  CodeBlockLineNumbers,
+} from "@/components/ui/code-block";
+import { DiffLine } from "@/components/ui/diff-line";
+import { ScoreRing } from "@/components/ui/score-ring";
 
 const mockCode = `function check(a) {
   if (a == true) {
@@ -16,25 +31,35 @@ const mockCode = `function check(a) {
   }
 }`;
 
-const mockIssues = [
+interface Issue {
+  title: string;
+  description: string;
+  severity: BadgeProps["variant"];
+}
+
+const mockIssues: Issue[] = [
   {
     title: "Redundant Boolean Comparison",
-    description: "Comparing a boolean directly with '== true' is like asking if the sky is blue and then checking if the answer is yes.",
+    description:
+      "Comparing a boolean directly with '== true' is like asking if the sky is blue and then checking if the answer is yes.",
     severity: "critical",
   },
   {
     title: "The 'If-Return-Else-Return' Anti-pattern",
-    description: "You're writing 5 lines of code for something that should be a single return statement. Your CPU is crying.",
+    description:
+      "You're writing 5 lines of code for something that should be a single return statement. Your CPU is crying.",
     severity: "warning",
   },
   {
     title: "Missing Type Safety",
-    description: "Using 'a' as a parameter name? What is this, 1995? Give it a type and a real name.",
+    description:
+      "Using 'a' as a parameter name? What is this, 1995? Give it a type and a real name.",
     severity: "critical",
   },
   {
     title: "Excessive Verbosity",
-    description: "This function has more boiler plate than a 19th-century steam engine.",
+    description:
+      "This function has more boiler plate than a 19th-century steam engine.",
     severity: "warning",
   },
 ];
@@ -42,7 +67,7 @@ const mockIssues = [
 export default function RoastResults() {
   return (
     <main className="flex w-full flex-col items-center gap-10 bg-bg-page px-10 py-20">
-      <section className="flex w-full max-w-[960px] flex-col gap-10">
+      <section className="flex w-full max-w-240 flex-col gap-10">
         {/* Score Hero (x3tP9) */}
         <div className="flex items-center gap-12">
           <ScoreRing value={12} size="lg" strokeWidth={6} />
@@ -51,7 +76,9 @@ export default function RoastResults() {
               Your code is a disaster.
             </h1>
             <p className="font-mono text-lg text-text-secondary leading-relaxed">
-              {"// Honestly, I've seen better logic in a fortune cookie. This function is so redundant it's practically a recursive loop of disappointment."}
+              {
+                "// Honestly, I've seen better logic in a fortune cookie. This function is so redundant it's practically a recursive loop of disappointment."
+              }
             </p>
             <div className="flex gap-3">
               <Badge variant="critical">12/100 shameful points</Badge>
@@ -65,14 +92,23 @@ export default function RoastResults() {
         {/* Submitted Code Section (alSUH) */}
         <div className="flex flex-col gap-6">
           <div className="flex items-center gap-2">
-            <span className="font-mono text-sm font-bold text-accent-green">{"//"}</span>
-            <h2 className="font-mono text-sm font-bold text-text-primary">submitted_code</h2>
+            <span className="font-mono text-sm font-bold text-accent-green">
+              {"//"}
+            </span>
+            <h2 className="font-mono text-sm font-bold text-text-primary">
+              submitted_code
+            </h2>
           </div>
-          <CodeBlock 
-            code={mockCode} 
-            language="javascript" 
-            fileName="shameful_check.js"
-          />
+          <CodeBlock>
+            <CodeBlockHeader>
+              <CodeBlockDots />
+              <CodeBlockFileName>shameful_check.js</CodeBlockFileName>
+            </CodeBlockHeader>
+            <CodeBlockBody>
+              <CodeBlockLineNumbers count={mockCode.split("\n").length} />
+              <CodeBlockContent code={mockCode} language="javascript" />
+            </CodeBlockBody>
+          </CodeBlock>
         </div>
 
         <div className="h-px w-full bg-border-primary" />
@@ -80,27 +116,26 @@ export default function RoastResults() {
         {/* Analysis Section (Hn3pX) */}
         <div className="flex flex-col gap-6">
           <div className="flex items-center gap-2">
-            <span className="font-mono text-sm font-bold text-accent-green">{"//"}</span>
-            <h2 className="font-mono text-sm font-bold text-text-primary">detailed_analysis</h2>
+            <span className="font-mono text-sm font-bold text-accent-green">
+              {"//"}
+            </span>
+            <h2 className="font-mono text-sm font-bold text-text-primary">
+              detailed_analysis
+            </h2>
           </div>
-          
+
           <div className="grid grid-cols-2 gap-5">
-            {mockIssues.map((issue, i) => (
-              <Card 
-                key={i}
-                variant="elevated"
-                header={
-                  <Badge variant={issue.severity as any} size="sm">
-                    {issue.severity.toUpperCase()}
+            {mockIssues.map((issue) => (
+              <Card key={issue.title} variant="elevated">
+                <CardHeader>
+                  <Badge variant={issue.severity} size="sm">
+                    {issue.severity?.toUpperCase()}
                   </Badge>
-                }
-              >
-                <h3 className="font-mono text-[15px] font-bold text-text-primary">
-                  {issue.title}
-                </h3>
-                <p className="font-mono text-xs text-text-secondary leading-relaxed">
-                  {issue.description}
-                </p>
+                </CardHeader>
+                <CardContent>
+                  <CardTitle>{issue.title}</CardTitle>
+                  <CardDescription>{issue.description}</CardDescription>
+                </CardContent>
               </Card>
             ))}
           </div>
@@ -111,8 +146,12 @@ export default function RoastResults() {
         {/* Diff Section (EGXHQ) */}
         <div className="flex flex-col gap-6">
           <div className="flex items-center gap-2">
-            <span className="font-mono text-sm font-bold text-accent-green">{"//"}</span>
-            <h2 className="font-mono text-sm font-bold text-text-primary">suggested_fix</h2>
+            <span className="font-mono text-sm font-bold text-accent-green">
+              {"//"}
+            </span>
+            <h2 className="font-mono text-sm font-bold text-text-primary">
+              suggested_fix
+            </h2>
           </div>
 
           <div className="overflow-hidden rounded-md border border-border-primary bg-bg-input">
@@ -136,9 +175,7 @@ export default function RoastResults() {
 
         <div className="flex justify-center pt-8">
           <Link href="/">
-            <Button variant="secondary">
-              {"< back_to_editor"}
-            </Button>
+            <Button variant="secondary">{"< back_to_editor"}</Button>
           </Link>
         </div>
       </section>

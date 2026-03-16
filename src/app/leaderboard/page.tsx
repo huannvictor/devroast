@@ -1,9 +1,15 @@
 "use client";
 
-import { LeaderboardRow } from "@/components/ui/leaderboard-row";
+import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import {
+  LeaderboardRow,
+  LeaderboardRowCode,
+  LeaderboardRowLang,
+  LeaderboardRowRank,
+  LeaderboardRowScore,
+} from "@/components/ui/leaderboard-row";
 
 const mockLeaderboard = [
   {
@@ -47,7 +53,7 @@ const mockLeaderboard = [
 export default function LeaderboardPage() {
   return (
     <main className="flex w-full flex-col items-center gap-10 bg-bg-page px-10 py-20">
-      <section className="flex w-full max-w-[960px] flex-col gap-10">
+      <section className="flex w-full max-w-240 flex-col gap-10">
         {/* Hero Section (4tysx) */}
         <div className="flex flex-col gap-4">
           <div className="flex items-center gap-3">
@@ -70,24 +76,23 @@ export default function LeaderboardPage() {
         {/* Leaderboard Entries (w89x6) */}
         <div className="flex flex-col gap-4">
           <div className="overflow-hidden rounded-md border border-border-primary">
-            {mockLeaderboard.map((entry) => (
+            {mockLeaderboard.map((entry, i) => (
               <LeaderboardRow
                 key={entry.rank}
-                rank={entry.rank}
-                score={entry.score}
-                code={entry.code}
-                lang={entry.lang}
-                className="hover:bg-bg-surface/50 transition-colors cursor-pointer"
-              />
+                className={`hover:bg-bg-surface/50 transition-colors cursor-pointer ${i > 0 ? "border-t border-border-primary" : ""}`}
+              >
+                <LeaderboardRowRank value={entry.rank} />
+                <LeaderboardRowScore value={entry.score} />
+                <LeaderboardRowCode>{entry.code}</LeaderboardRowCode>
+                <LeaderboardRowLang>{entry.lang}</LeaderboardRowLang>
+              </LeaderboardRow>
             ))}
           </div>
         </div>
 
         <div className="flex justify-center pt-8">
           <Link href="/">
-            <Button variant="primary">
-              $ roast_my_own_code
-            </Button>
+            <Button variant="primary">$ roast_my_own_code</Button>
           </Link>
         </div>
       </section>
