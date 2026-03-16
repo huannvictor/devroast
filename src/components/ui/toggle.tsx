@@ -1,9 +1,6 @@
 "use client";
 
-import {
-  Toggle as BaseToggle,
-  type ToggleState,
-} from "@base-ui/react/toggle";
+import { Toggle as BaseToggle, type ToggleState } from "@base-ui/react/toggle";
 import type { ComponentProps } from "react";
 import { tv } from "tailwind-variants";
 
@@ -11,14 +8,14 @@ const toggle = tv({
   slots: {
     track: [
       "group",
-      "relative inline-block h-[22px] w-10 rounded-full",
+      "relative inline-block h-5.5 w-10 rounded-full",
       "transition-colors duration-150",
       "data-[state=on]:bg-accent-green",
       "data-[state=off]:bg-border-primary",
     ],
     thumb: [
       "absolute top-1/2 left-[3px] -translate-y-1/2",
-      "h-4 w-4 rounded-full bg-white",
+      "size-4 rounded-full bg-white",
       "transition-transform duration-150",
       "transform",
       "group-data-[state=on]:translate-x-[18px]",
@@ -48,4 +45,4 @@ function Toggle({ className, pressed, ...props }: ToggleProps) {
   );
 }
 
-export { Toggle, toggle, type ToggleProps };
+export { Toggle, type ToggleProps, toggle };

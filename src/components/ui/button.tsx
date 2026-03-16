@@ -37,7 +37,7 @@ const button = tv({
     size: {
       sm: "px-3 py-1.5 text-xs",
       md: "px-4 py-2 text-xs",
-      lg: "px-6 py-2.5 text-[13px]",
+      lg: "px-6 py-2.5 text-13",
     },
   },
   defaultVariants: {
@@ -52,4 +52,4 @@ function Button({ variant, size, className, ...props }: ButtonProps) {
   return <button className={button({ variant, size, className })} {...props} />;
 }
 
-export { Button, button, type ButtonProps };
+export { Button, type ButtonProps, button };

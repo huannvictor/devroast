@@ -5,11 +5,11 @@ import { tv, type VariantProps } from "tailwind-variants";
 
 const leaderboardRow = tv({
   slots: {
-    base: "flex w-full items-center gap-5 px-5 py-4",
-    rank: "w-[50px] shrink-0 font-mono text-[13px] text-text-tertiary",
-    score: "w-[70px] shrink-0 font-mono text-[13px] font-bold",
+    root: "flex w-full items-center gap-5 px-5 py-4",
+    rank: "w-12.5 shrink-0 font-mono text-13 text-text-tertiary",
+    score: "w-17.5 shrink-0 font-mono text-13 font-bold",
     code: "flex-1 truncate font-mono text-xs text-text-secondary",
-    lang: "w-[100px] shrink-0 font-mono text-xs text-text-tertiary",
+    lang: "w-25 shrink-0 font-mono text-xs text-text-tertiary",
   },
   variants: {
     scoreVariant: {
@@ -26,40 +26,81 @@ const leaderboardRow = tv({
   },
 });
 
-type LeaderboardRowProps = ComponentProps<"div"> &
-  VariantProps<typeof leaderboardRow> & {
-    rank: number;
-    score: number;
-    code: string;
-    lang: string;
-  };
+type LeaderboardRowRootProps = ComponentProps<"div"> &
+  VariantProps<typeof leaderboardRow>;
 
-function LeaderboardRow({
+function LeaderboardRowRoot({ className, ...props }: LeaderboardRowRootProps) {
+  const { root } = leaderboardRow();
+  return <div className={root({ className })} {...props} />;
+}
+
+type LeaderboardRowRankProps = ComponentProps<"div"> & { value: number };
+
+function LeaderboardRowRank({
   className,
-  rank,
-  score,
-  code,
-  lang,
+  value,
   ...props
-}: LeaderboardRowProps) {
-  const scoreVariant =
-    score >= 8 ? "good" : score >= 4 ? "medium" : "bad";
-  const {
-    base,
-    rank: rankSlot,
-    score: scoreSlot,
-    code: codeSlot,
-    lang: langSlot,
-  } = leaderboardRow({ scoreVariant });
-
+}: LeaderboardRowRankProps) {
+  const { rank } = leaderboardRow();
   return (
-    <div className={base({ className })} {...props}>
-      <div className={rankSlot()}>#{rank}</div>
-      <div className={scoreSlot()}>{score.toFixed(1)}</div>
-      <div className={codeSlot()}>{code}</div>
-      <div className={langSlot()}>{lang}</div>
+    <div className={rank({ className })} {...props}>
+      #{value}
     </div>
   );
 }
 
-export { LeaderboardRow, type LeaderboardRowProps, leaderboardRow };
+type LeaderboardRowScoreProps = ComponentProps<"div"> & { value: number };
+
+function LeaderboardRowScore({
+  className,
+  value,
+  ...props
+}: LeaderboardRowScoreProps) {
+  const scoreVariant = value >= 8 ? "good" : value >= 4 ? "medium" : "bad";
+  const { score } = leaderboardRow({ scoreVariant });
+  return (
+    <div className={score({ className })} {...props}>
+      {value.toFixed(1)}
+    </div>
+  );
+}
+
+type LeaderboardRowCodeProps = ComponentProps<"div">;
+
+function LeaderboardRowCode({
+  className,
+  children,
+  ...props
+}: LeaderboardRowCodeProps) {
+  const { code } = leaderboardRow();
+  return (
+    <div className={code({ className })} {...props}>
+      {children}
+    </div>
+  );
+}
+
+type LeaderboardRowLangProps = ComponentProps<"div">;
+
+function LeaderboardRowLang({
+  className,
+  children,
+  ...props
+}: LeaderboardRowLangProps) {
+  const { lang } = leaderboardRow();
+  return (
+    <div className={lang({ className })} {...props}>
+      {children}
+    </div>
+  );
+}
+
+export {
+  LeaderboardRowCode,
+  LeaderboardRowLang,
+  LeaderboardRowRank,
+  LeaderboardRowRoot as LeaderboardRow,
+  LeaderboardRowRoot,
+  LeaderboardRowScore,
+  leaderboardRow,
+};

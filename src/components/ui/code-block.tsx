@@ -8,26 +8,66 @@ import { tv, type VariantProps } from "tailwind-variants";
 const codeBlock = tv({
   slots: {
     root: "rounded-md border border-border-primary bg-bg-input overflow-hidden",
-    header:
-      "flex items-center gap-3 h-10 px-4 border-b border-border-primary",
+    header: "flex items-center gap-3 h-10 px-4 border-b border-border-primary",
     dots: "flex items-center gap-2",
-    dot: "h-2.5 w-2.5 rounded-full",
+    dot: "size-2.5 rounded-full",
     fileName: "text-xs text-text-tertiary font-mono",
     body: "flex",
     lineNumbers:
-      "flex-shrink-0 w-10 text-right py-3 px-2.5 text-text-tertiary select-none text-[13px] font-mono bg-bg-surface border-r border-border-primary leading-6",
+      "shrink-0 w-10 text-right py-3 px-2.5 text-text-tertiary select-none text-13 font-mono bg-bg-surface border-r border-border-primary leading-6",
     content:
-      "overflow-x-auto p-3 text-[13px] leading-6 [&_pre]:!bg-transparent [&_pre]:!leading-6",
+      "overflow-x-auto p-3 text-13 leading-6 [&_pre]:bg-transparent! [&_pre]:leading-6!",
   },
 });
 
-type CodeBlockProps = Omit<ComponentProps<"div">, "lang"> &
-  VariantProps<typeof codeBlock> & {
-    code: string;
-    language: "typescript" | "javascript" | "css" | "html";
-    fileName?: string;
-    showLineNumbers?: boolean;
-  };
+type CodeBlockRootProps = ComponentProps<"div"> &
+  VariantProps<typeof codeBlock>;
+
+function CodeBlockRoot({ className, ...props }: CodeBlockRootProps) {
+  const { root } = codeBlock();
+  return <div className={root({ className })} {...props} />;
+}
+
+function CodeBlockHeader({ className, ...props }: ComponentProps<"div">) {
+  const { header } = codeBlock();
+  return <div className={header({ className })} {...props} />;
+}
+
+function CodeBlockDots() {
+  const { dots, dot } = codeBlock();
+  return (
+    <div className={dots()}>
+      <div className={dot({ class: "bg-accent-red" })} />
+      <div className={dot({ class: "bg-accent-amber" })} />
+      <div className={dot({ class: "bg-accent-green" })} />
+    </div>
+  );
+}
+
+function CodeBlockFileName({ className, ...props }: ComponentProps<"span">) {
+  const { fileName } = codeBlock();
+  return <span className={fileName({ className })} {...props} />;
+}
+
+function CodeBlockBody({ className, ...props }: ComponentProps<"div">) {
+  const { body } = codeBlock();
+  return <div className={body({ className })} {...props} />;
+}
+
+function CodeBlockLineNumbers({
+  className,
+  count,
+  ...props
+}: ComponentProps<"div"> & { count: number }) {
+  const { lineNumbers } = codeBlock();
+  return (
+    <div className={lineNumbers({ className })} {...props}>
+      {Array.from({ length: count }).map((_, i) => (
+        <div key={String(i + 1)}>{i + 1}</div>
+      ))}
+    </div>
+  );
+}
 
 let highlighterPromise: Promise<
   Awaited<ReturnType<typeof getSingletonHighlighter>>
@@ -43,16 +83,17 @@ function getHighlighterSingleton() {
   return highlighterPromise;
 }
 
-function CodeBlock({
+function CodeBlockContent({
   className,
   code,
   language,
-  fileName,
-  showLineNumbers = true,
-  ...props
-}: CodeBlockProps) {
+}: {
+  className?: string;
+  code: string;
+  language: "typescript" | "javascript" | "css" | "html";
+}) {
   const [highlightedCode, setHighlightedCode] = useState("");
-  const lineCount = code.split('\n').length;
+  const { content, root } = codeBlock();
 
   useEffect(() => {
     getHighlighterSingleton().then((highlighter) => {
@@ -64,59 +105,36 @@ function CodeBlock({
     });
   }, [code, language]);
 
-  const {
-    root,
-    header,
-    dots,
-    dot,
-    fileName: fileNameSlot,
-    body,
-    lineNumbers,
-    content,
-  } = codeBlock();
-
   if (!highlightedCode) {
     return (
       <div
         className={root({
           className:
-            "flex items-center justify-center py-4 min-h-[100px] animate-pulse",
+            "flex items-center justify-center py-4 min-h-25 animate-pulse border-none bg-transparent",
         })}
       >
-        <span className="text-text-secondary text-sm">
-          Loading code...
-        </span>
+        <span className="text-text-secondary text-sm">Loading code...</span>
       </div>
     );
   }
 
   return (
-    <div className={root({ className })} {...props}>
-      <div className={header()}>
-        <div className={dots()}>
-          <div className={dot({ class: "bg-[#EF4444]" })} />
-          <div className={dot({ class: "bg-[#F59E0B]" })} />
-          <div className={dot({ class: "bg-[#10B981]" })} />
-        </div>
-        {fileName && <span className={fileNameSlot()}>{fileName}</span>}
-      </div>
-
-      <div className={body()}>
-        {showLineNumbers && (
-          <div className={lineNumbers()}>
-            {Array.from({ length: lineCount }).map((_, i) => (
-              <div key={String(i + 1)}>{i + 1}</div>
-            ))}
-          </div>
-        )}
-        <div
-          className={content()}
-          // biome-ignore lint/security/noDangerouslySetInnerHtml: Shiki's output is trusted HTML for syntax highlighting.
-          dangerouslySetInnerHTML={{ __html: highlightedCode }}
-        />
-      </div>
-    </div>
+    <div
+      className={content({ className })}
+      // biome-ignore lint/security/noDangerouslySetInnerHtml: Shiki's output is trusted HTML for syntax highlighting.
+      dangerouslySetInnerHTML={{ __html: highlightedCode }}
+    />
   );
 }
 
-export { CodeBlock, type CodeBlockProps, codeBlock };
+export {
+  CodeBlockBody,
+  CodeBlockContent,
+  CodeBlockDots,
+  CodeBlockFileName,
+  CodeBlockHeader,
+  CodeBlockLineNumbers,
+  CodeBlockRoot as CodeBlock,
+  CodeBlockRoot,
+  codeBlock,
+};
