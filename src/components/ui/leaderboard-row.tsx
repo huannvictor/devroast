@@ -5,11 +5,11 @@ import { tv, type VariantProps } from "tailwind-variants";
 
 const leaderboardRow = tv({
   slots: {
-    base: "flex w-full items-center gap-6 border-b border-border-primary px-5 py-4",
-    rank: "w-10 font-mono text-[13px] text-text-tertiary",
-    score: "w-16 font-mono text-[13px] font-bold",
+    base: "flex w-full items-center gap-5 px-5 py-4",
+    rank: "w-[50px] shrink-0 font-mono text-[13px] text-text-tertiary",
+    score: "w-[70px] shrink-0 font-mono text-[13px] font-bold",
     code: "flex-1 truncate font-mono text-xs text-text-secondary",
-    lang: "w-24 font-mono text-xs text-text-tertiary",
+    lang: "w-[100px] shrink-0 font-mono text-xs text-text-tertiary",
   },
   variants: {
     scoreVariant: {
