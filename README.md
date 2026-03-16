@@ -1,39 +1,39 @@
 # Devroast 🔥
 
-**Devroast** is where your code goes to get burned. Submit your most "creative" (shameful) snippets and receive a brutal, no-filter analysis of your logic, style, and efficiency. Stop pretending your `eval()` is fine—let the agent tell you the truth.
+**Devroast** é onde o seu código vai para ser tostado. Envie seus trechos de código mais "criativos" (vergonhosos) e receba uma análise brutal e sem filtros sobre sua lógica, estilo e eficiência. Pare de fingir que seu `eval()` está tudo bem — deixe o agente te dizer a verdade.
 
 ---
 
 ## 🚀 NLW Operator
-This project was developed during the **NLW Operator** event by [Rocketseat](https://rocketseat.com.br). It serves as a hands-on exploration of the cutting-edge capabilities of AI-driven development and modern web architecture.
+Este projeto foi desenvolvido durante o evento **NLW Operator** da [Rocketseat](https://rocketseat.com.br). Ele serve como uma exploração prática das capacidades de ponta do desenvolvimento impulsionado por IA e arquitetura web moderna.
 
-## ✨ Features
-- **Brutal Code Roast**: Submit your snippets for an immediate, AI-powered logic and style audit.
-- **The Shameboard**: A leaderboard of the most questionable code found in the wild.
-- **Suggested Fixes**: Because even the most tragic code deserves a redemption arc.
-- **Developer-Centric UI**: A sleek, terminal-inspired interface designed for the modern dev.
+## ✨ Funcionalidades
+- **Roast de Código Brutal**: Envie seus trechos de código para uma auditoria imediata de lógica e estilo alimentada por IA.
+- **Placar da Vergonha (Shameboard)**: Um ranking dos códigos mais questionáveis encontrados por aí.
+- **Sugestões de Ajuste**: Porque até o código mais trágico merece um arco de redenção.
+- **Interface Focada no Desenvolvedor**: Uma interface elegante, inspirada em terminais, projetada para o dev moderno.
 
-## 🛠️ Tech Stack
+## 🛠️ Stack Tecnológica
 - **Framework**: Next.js 16 (App Router) & React 19
-- **Styling**: Tailwind CSS v4 & Tailwind Variants
-- **Quality**: TypeScript & Biome
-- **Package Manager**: pnpm
+- **Estilização**: Tailwind CSS v4 & Tailwind Variants
+- **Qualidade**: TypeScript & Biome
+- **Gerenciador de Pacotes**: pnpm
 
-## 🏁 Getting Started
+## 🏁 Como Começar
 
-1. **Clone the repository**:
+1. **Clone o repositório**:
    ```bash
-   git clone <repository-url>
+   git clone <url-do-repositorio>
    ```
-2. **Install dependencies**:
+2. **Instale as dependências**:
    ```bash
    pnpm install
    ```
-3. **Ignite the server**:
+3. **Dê um ignite no servidor**:
    ```bash
    pnpm dev
    ```
-4. **Face the truth**: Open [http://localhost:3000](http://localhost:3000)
+4. **Encare a verdade**: Abra [http://localhost:3000](http://localhost:3000)
 
 ---
-*Made with ☕ and a lot of sass during NLW Operator.*
+*Feito com ☕ e muito deboche durante o NLW Operator.*
